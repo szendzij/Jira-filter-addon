@@ -17,3 +17,4 @@ $("#show").click(() => {
 	closedDefects.parent().parent().show();
 })
 
+console.log("test")
