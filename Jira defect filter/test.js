@@ -7,12 +7,12 @@ $("#view-subtasks_heading").append("<button id='hide' style='border-radius:6px;m
 
 
 $("#hide").click(() => {
-	differentThanDefects.parent().parent().parent().hide(500);
+  differentThanDefects.parent().parent().parent().hide(500);
   closedDefects.parent().parent().hide(500);
 })
 
 $("#show").click(() => {
-	differentThanDefects.parent().parent().parent().show(500);
+  differentThanDefects.parent().parent().parent().show(500);
   closedDefects.parent().parent().show(500);
 })
 
@@ -20,78 +20,78 @@ $("#show").click(() => {
 
 
 var html = '<div class="issues-wrap" style="padding: 16px;border: 1px solid #d4d4d4;border-radius: 9px 9px 9px 9px;">' +
-'<p style="font-size:16px;"><strong>Issue Type:</strong></p>' + 
-'<form>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-type" value="Change subtask" id="Change subtask" /> Change subtask</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-type" value="Enhancement estimation subtask" id="Enhancement estimation subtask" /> Enhancement estimation subtask</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-type" value="Defect Sub-task" id="Defect Sub-task" /> Defect Sub-task</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-type" value="Sub-task - " id="Sub-task" /> Sub-task</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-type" value="Sub Test Execution" id="Sub Test Execution" /> Sub Test Execution</label>' + 
-  '<br>' + 
-'</form>' + 
-'<p style="font-size:16px;"><strong>Issue status:</strong></p>' + 
-'<form>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-status" value="New" id="New" /> New</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-status" value="Resolved" id="Resolved" /> Resolved</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-status" value="Closed" id="Closed" /> Closed</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-status" value="Reopened" id="Reopened" /> Reopened</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-status" value="In Progress" id="In Progress" /> In Progress</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-status" value="Ready to review" id="Ready to review" /> Ready to review</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-status" value="In review" id="In review" /> In review</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-status" value="Reviewed" id="Reviewed" /> Reviewed</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-status" value="Testing on branch" id="Testing on branch" /> Testing on branch</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-status" value="Testing on branch suspended" id="Testing on branch suspended" /> Testing on branch suspended</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-status" value="Verified on branch" id="Verified on branch" /> Verified on branch</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-status" value="Integrated into trunk" id="Integrated into trunk" /> Integrated into trunk</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-status" value="Testing after integration" id="Testing after integration" /> Testing after integration</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-status" value="Verified QA" id="Verified QA" /> Verified QA</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-status" value="UAT in progress" id="UAT in progress" /> UAT in progress</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-status" value="Accepted by business" id="Accepted by business" /> Accepted by business</label>' + 
-  '<br>' + 
-  '<label style="font-size:16px;">' + 
-	'<input type="checkbox" name="issue-status" value="Suspended" id="Suspended" /> Suspended</label>' + 
-'</form>' + 
-'</div>';
+  '<p style="font-size:16px;"><strong>Issue Type:</strong></p>' +
+  '<form>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-type" value="Change subtask" id="Change subtask" /> Change subtask</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-type" value="Enhancement estimation subtask" id="Enhancement estimation subtask" /> Enhancement estimation subtask</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-type" value="Defect Sub-task" id="Defect Sub-task" /> Defect Sub-task</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-type" value="Sub-task - " id="Sub-task" /> Sub-task</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-type" value="Sub Test Execution" id="Sub Test Execution" /> Sub Test Execution</label>' +
+  '<br>' +
+  '</form>' +
+  '<p style="font-size:16px;"><strong>Issue status:</strong></p>' +
+  '<form>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-status" value="New" id="New" /> New</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-status" value="Resolved" id="Resolved" /> Resolved</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-status" value="Closed" id="Closed" /> Closed</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-status" value="Reopened" id="Reopened" /> Reopened</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-status" value="In Progress" id="In Progress" /> In Progress</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-status" value="Ready to review" id="Ready to review" /> Ready to review</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-status" value="In review" id="In review" /> In review</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-status" value="Reviewed" id="Reviewed" /> Reviewed</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-status" value="Testing on branch" id="Testing on branch" /> Testing on branch</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-status" value="Testing on branch suspended" id="Testing on branch suspended" /> Testing on branch suspended</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-status" value="Verified on branch" id="Verified on branch" /> Verified on branch</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-status" value="Integrated into trunk" id="Integrated into trunk" /> Integrated into trunk</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-status" value="Testing after integration" id="Testing after integration" /> Testing after integration</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-status" value="Verified QA" id="Verified QA" /> Verified QA</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-status" value="UAT in progress" id="UAT in progress" /> UAT in progress</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-status" value="Accepted by business" id="Accepted by business" /> Accepted by business</label>' +
+  '<br>' +
+  '<label style="font-size:16px;">' +
+  '<input type="checkbox" name="issue-status" value="Suspended" id="Suspended" /> Suspended</label>' +
+  '</form>' +
+  '</div>';
 
 $("#greenhopper-agile-issue-web-panel_heading").append(html);
 
@@ -153,62 +153,103 @@ $("#greenhopper-agile-issue-web-panel_heading").append(html);
 
 
 var filtering = {
-    
-  selectedFilters : [],
-  tab_resoult : [],
-  tab : [],
-  init : function(){
-      // przygotowuje dane:
-      // tab - cala tablica subtascków
-      filtering.tab = $($('.issuerow'));
-      // przygotowujemy sobie tablice pomocniczą z elementami ktor na każdym tasku będziemy filtrować 
-      filtering.tab.each(function(ind, el){ 
-          var status = $(el).find('.status span').text();
-          var itype =  $(el).find('.issuetype a img').attr('alt')
-          filtering.tab_resoult[ind] = [status, itype];
-          console.log(el); 
-      });
-      
-      // zbieramy z widoku listę filtrów
-      var $filterCheckboxes = $('.issues-wrap input[type="checkbox"]');
-      // każdy filtr będzie nasłuchiwał zmiany wartości
-      $filterCheckboxes.on('change', function(elem) {
-          // filtering.selectedFilters zawiera aktualne zaznaczone checkboxy 
-          filtering.selectedFilters = [];
+  test : false,
+  selectedFilters: [],
+  tab_resoult: [],
+  tab: [],
+  init: function () {
+    // przygotowuje dane:
+    // tab - cala tablica subtascków
+    filtering.tab = $($('.issuerow'));
+    // przygotowujemy sobie tablice pomocniczą z elementami ktor na każdym tasku będziemy filtrować 
+    filtering.tab.each(function (ind, el) {
+      var status = $(el).find('.status span').text();
+      var itype = $(el).find('.issuetype a img').attr('alt')
+      filtering.tab_resoult[ind] = [status, itype];
+/// do przemyślenia -- ---- -----------------------------------------------------------------------------
+      ////
+      // console.log(el); 
+    });
 
-          $filterCheckboxes.filter(':checked').each(function(j, el) {
-              // twożymy listę zaznaczonych w tablicy filtering.selectedFilters  ( poprostu update)
-              filtering.selectedFilters.push(el.value);
-          });
-          // wołamy funkcję filtrującą dane (hide /show)
-          console.warn(filtering.selectedFilters);
-          filtering.filter();
+    // zbieramy z widoku listę filtrów
+    var $filterCheckboxes = $('.issues-wrap input[type="checkbox"]');
+    // każdy filtr będzie nasłuchiwał zmiany wartości
+    $filterCheckboxes.on('change', function (elem) {
+      // filtering.selectedFilters zawiera aktualne zaznaczone checkboxy 
+      filtering.selectedFilters = [];
+
+      $filterCheckboxes.filter(':checked').each(function (j, el) {
+        // twożymy listę zaznaczonych w tablicy filtering.selectedFilters  ( poprostu update)
+        filtering.selectedFilters.push(el.value);
       });
-      // filtering.filter();
+      // wołamy funkcję filtrującą dane (hide /show)
+      // console.warn(filtering.selectedFilters);
+      filtering.filter();
+    });
+    // filtering.filter();
   },
-  filter : function() {
-      // dla każego elementu z widoku robimy sprawdzenie czy spełnia WSZYSTKIE warunki filtru
-      filtering.tab.each(function(ind, el){ 
-          // każdy element ze zbioru wyżej przechodzi przez each dla filtru niżej
-          var test = true;
-          filtering.selectedFilters.forEach(function(intValue, filterValue){ 
-              if(filtering.tab_resoult.indexOf(filterValue)==-1) {
-                  test = false;
-              }
+  filter: function () {
+    
+    var shown = 0;
+    var hidden = 0;
+    // dla każego elementu z widoku robimy sprawdzenie czy spełnia WSZYSTKIE warunki filtru
+    filtering.tab.each(function (ind, el) {
+      // każdy element ze zbioru wyżej przechodzi przez each dla filtru niżej
+      filtering.test = false;
+      if (filtering.selectedFilters.length == 0) {
+        filtering.test = true;
+      }
+      filtering.selectedFilters.forEach(function (filterValue, intValue) {
 
-          });
+        if (ind == 18) {
+          console.warn('filtering.tab_resoult[ind] '+filtering.tab_resoult[ind]);
+          console.warn('filter value '+filterValue);
+          console.warn('indexOf '+filtering.tab_resoult[ind].indexOf(filterValue));
+          console.warn('int value '+intValue);
 
-          switch(test){ 
-          case true: 
-              $(el).show();
-              break;
-          default:
-              $(el).hide();
-              break;
-          }
-          
+        }
+  
+
+
+        if (filtering.tab_resoult[ind].indexOf(filterValue) !== -1) {
+          filtering.test = true;
+        }
+
+
+
+
       });
-  }    
+      if (ind == 18) {
+        console.log("sprawdzanie wartości dla");
+        console.log(filtering.test);
+        console.log(ind);
+        console.log(filtering.selectedFilters);
+        console.log(filtering.tab_resoult[ind]);
+
+      }
+
+
+      switch (filtering.test) {
+        case true:
+          $(el).show();
+          show++;
+          console.log('pokazuje ')
+          break;
+
+        default:
+          $(el).hide();
+          hidden++;
+          console.log('hide ')
+          break;
+      }
+
+    });
+
+console.log('hiddden to true '+hidden + ' shown to jest false '+shown)
+
+  }
+
+
 
 }
 
@@ -216,4 +257,3 @@ var filtering = {
 
 
 filtering.init();
-
