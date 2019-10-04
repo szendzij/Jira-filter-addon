@@ -98,54 +98,122 @@ $("#greenhopper-agile-issue-web-panel_heading").append(html);
 
 
 
-var $filterCheckboxes = $('input[type="checkbox"]');
+// var $filterCheckboxes = $('input[type="checkbox"]');
 
-$filterCheckboxes.on('change', function() {
+// $filterCheckboxes.on('change', function() {
 
-  var selectedFilters = {};
+//   var selectedFilters = {};
 
-  $filterCheckboxes.filter(':checked').each(function() {
+//   $filterCheckboxes.filter(':checked').each(function() {
 
-    if (!selectedFilters.hasOwnProperty(this.name)) {
-      selectedFilters[this.name] = [];
-    }
+//     if (!selectedFilters.hasOwnProperty(this.name)) {
+//       selectedFilters[this.name] = [];
+//     }
 
-    selectedFilters[this.name].push(this.value);
-	console.log(selectedFilters);
-  });
+//     selectedFilters[this.name].push(this.value);
+// 	console.log(selectedFilters);
+//   });
 
-  // create a collection containing all of the filterable elements
-  var $filteredResults = $('#issuetable .issuerow');
-  console.log($filteredResults);
+//   // create a collection containing all of the filterable elements
+//   var $filteredResults = $('#issuetable .issuerow');
+//   console.log($filteredResults);
 
-  // loop over the selected filter name -> (array) values pairs
-  $.each(selectedFilters, function(name, filterValues) {
+//   // loop over the selected filter name -> (array) values pairs
+//   $.each(selectedFilters, function(name, filterValues) {
 
-    // filter each .issuetype element
-    $filteredResults = $filteredResults.filter(function() {
+//     // filter each .issuetype element
+//     $filteredResults = $filteredResults.filter(function() {
 
-      var matched = false,
-        currentFilterValues = $(this).attr('title');
+//       var matched = false,
+//         currentFilterValues = $(this).data('');
 
-      // loop over each category value in the current .flower's data-category
-      $.each(currentFilterValues, function(_, currentFilterValue) {
+//       // loop over each category value in the current .flower's data-category
+//       $.each(currentFilterValues, function(_, currentFilterValue) {
 
-        // if the current category exists in the selected filters array
-        // set matched to true, and stop looping. as we're ORing in each
-        // set of filters, we only need to match once
+//         // if the current category exists in the selected filters array
+//         // set matched to true, and stop looping. as we're ORing in each
+//         // set of filters, we only need to match once
 
-        if ($.inArray(currentFilterValue, filterValues) != -1) {
-          matched = true;
-          return false;
-        }
+//         if ($.inArray(currentFilterValue, filterValues) != -1) {
+//           matched = true;
+//           return false;
+//         }
+//       });
+
+//       // if matched is true the current .flower element is returned
+//       return matched;
+
+//     });
+//   });
+
+//   $('.flower').hide().filter($filteredResults).show();
+
+// });
+
+
+
+var filtering = {
+    
+  selectedFilters : [],
+  tab_resoult : [],
+  tab : [],
+  init : function(){
+      // przygotowuje dane:
+      // tab - cala tablica subtascków
+      filtering.tab = $($('.issuerow'));
+      // przygotowujemy sobie tablice pomocniczą z elementami ktor na każdym tasku będziemy filtrować 
+      filtering.tab.each(function(ind, el){ 
+          var status = $(el).find('.status span').text();
+          var itype =  $(el).find('.issuetype a img').attr('alt')
+          filtering.tab_resoult[ind] = [status, itype];
+          console.log(el); 
       });
+      
+      // zbieramy z widoku listę filtrów
+      var $filterCheckboxes = $('.issues-wrap input[type="checkbox"]');
+      // każdy filtr będzie nasłuchiwał zmiany wartości
+      $filterCheckboxes.on('change', function(elem) {
+          // filtering.selectedFilters zawiera aktualne zaznaczone checkboxy 
+          filtering.selectedFilters = [];
 
-      // if matched is true the current .flower element is returned
-      return matched;
+          $filterCheckboxes.filter(':checked').each(function(j, el) {
+              // twożymy listę zaznaczonych w tablicy filtering.selectedFilters  ( poprostu update)
+              filtering.selectedFilters.push(el.value);
+          });
+          // wołamy funkcję filtrującą dane (hide /show)
+          console.warn(filtering.selectedFilters);
+          filtering.filter();
+      });
+      // filtering.filter();
+  },
+  filter : function() {
+      // dla każego elementu z widoku robimy sprawdzenie czy spełnia WSZYSTKIE warunki filtru
+      filtering.tab.each(function(ind, el){ 
+          // każdy element ze zbioru wyżej przechodzi przez each dla filtru niżej
+          var test = true;
+          filtering.selectedFilters.forEach(function(intValue, filterValue){ 
+              if(filtering.tab_resoult.indexOf(filterValue)==-1) {
+                  test = false;
+              }
 
-    });
-  });
+          });
 
-  $('.flower').hide().filter($filteredResults).show();
+          switch(test){ 
+          case true: 
+              $(el).show();
+              break;
+          default:
+              $(el).hide();
+              break;
+          }
+          
+      });
+  }    
 
-});
+}
+
+
+
+
+filtering.init();
+
