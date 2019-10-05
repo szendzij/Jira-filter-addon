@@ -6,15 +6,15 @@ $("#view-subtasks_heading").append("<button id='show' style='border-radius:6px;m
 $("#view-subtasks_heading").append("<button id='hide' style='border-radius:6px;margin:3px;background-color: #2684ff;border: none;color: white;padding: 5px 15px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;'>hide</button>");
 
 
-$("#hide").click(() => {
+$("#hide").click(function () {
   differentThanDefects.parent().parent().parent().hide(500);
   closedDefects.parent().parent().hide(500);
-})
+});
 
-$("#show").click(() => {
+$("#show").click(function () {
   differentThanDefects.parent().parent().parent().show(500);
   closedDefects.parent().parent().show(500);
-})
+});
 
 
 
@@ -153,22 +153,32 @@ $("#greenhopper-agile-issue-web-panel_heading").append(html);
 
 
 var filtering = {
-  test : false,
+  testIssueStatus: false,
+  testIssueType: false,
   selectedFilters: [],
   tab_resoult: [],
   tab: [],
+  tab2: [],
+
+  tab_status: [],
+  tab_issueType: [],
+
   init: function () {
     // przygotowuje dane:
     // tab - cala tablica subtascków
     filtering.tab = $($('.issuerow'));
     // przygotowujemy sobie tablice pomocniczą z elementami ktor na każdym tasku będziemy filtrować 
+
     filtering.tab.each(function (ind, el) {
-      var status = $(el).find('.status span').text();
-      var itype = $(el).find('.issuetype a img').attr('alt')
-      filtering.tab_resoult[ind] = [status, itype];
-/// do przemyślenia -- ---- -----------------------------------------------------------------------------
+      var issueStatus = $(el).find('.status span').text();
+      var isseuType = $(el).find('.issuetype a img').attr('alt');
+
+      filtering.tab_status[ind] = [issueStatus];
+      filtering.tab_issueType[ind] = [isseuType];
+
+      // filtering.tab_resoult[ind] = [status, itype];
+      /// do przemyślenia -- ---- -----------------------------------------------------------------------------
       ////
-      // console.log(el); 
     });
 
     // zbieramy z widoku listę filtrów
@@ -181,79 +191,100 @@ var filtering = {
       $filterCheckboxes.filter(':checked').each(function (j, el) {
         // twożymy listę zaznaczonych w tablicy filtering.selectedFilters  ( poprostu update)
         filtering.selectedFilters.push(el.value);
+
+        console.log('selected filters ' + filtering.selectedFilters);
+
       });
       // wołamy funkcję filtrującą dane (hide /show)
-      // console.warn(filtering.selectedFilters);
       filtering.filter();
     });
-    // filtering.filter();
   },
+
+
   filter: function () {
-    
-    var shown = 0;
-    var hidden = 0;
+
     // dla każego elementu z widoku robimy sprawdzenie czy spełnia WSZYSTKIE warunki filtru
+
     filtering.tab.each(function (ind, el) {
       // każdy element ze zbioru wyżej przechodzi przez each dla filtru niżej
-      filtering.test = false;
+      filtering.testIssueStatus = false;
+      filtering.testIssueType = false;
+
+
+
       if (filtering.selectedFilters.length == 0) {
-        filtering.test = true;
+        filtering.testIssueStatus = true;
+        filtering.testIssueType = true;
+
       }
+
       filtering.selectedFilters.forEach(function (filterValue, intValue) {
 
-        if (ind == 18) {
-          console.warn('filtering.tab_resoult[ind] '+filtering.tab_resoult[ind]);
-          console.warn('filter value '+filterValue);
-          console.warn('indexOf '+filtering.tab_resoult[ind].indexOf(filterValue));
-          console.warn('int value '+intValue);
+      //   if (ind == 1){
+      //     console.warn('filtering.tab_status[ind] '+filtering.tab_status[ind]);
+      //     console.warn('filtering.tab_issueType[ind] '+filtering.tab_issueType[ind]);
 
+      //     console.warn('filter value '+filterValue);
+      //     console.warn('indexOf status'+filtering.  tab_status[ind].indexOf(filterValue));
+      //     console.warn('indexOf type'+filtering.tab_status[ind].indexOf(filterValue));
+      // }
+
+
+
+        // if (filtering.tab_resoult[ind].indexOf(filterValue) !== -1) {
+        //   filtering.test = true;
+        // }
+
+        if (filtering.tab_issueType[ind].indexOf(filterValue) !== -1) {
+          filtering.testIssueType = true;
+          
         }
-  
 
-
-        if (filtering.tab_resoult[ind].indexOf(filterValue) !== -1) {
-          filtering.test = true;
+        if (filtering.tab_status[ind].indexOf(filterValue) !== -1) {
+          filtering.testIssueStatus = true;
         }
 
 
 
 
       });
-      if (ind == 18) {
-        console.log("sprawdzanie wartości dla");
-        console.log(filtering.test);
-        console.log(ind);
-        console.log(filtering.selectedFilters);
-        console.log(filtering.tab_resoult[ind]);
+      // if (ind == 18) {
+      //   console.log("sprawdzanie wartości dla");
+      //   console.log(filtering.test);
+      //   console.log(ind);
+      //   console.log(filtering.selectedFilters);
+      //   console.log(filtering.tab_resoult[ind]);
 
+      // }
+
+      // switch (filtering.test1) {
+      //   case true:
+      //     $(el).show(200);
+      //     break;
+
+      //   default:
+      //     $(el).hide(200);
+      //     break;
+      // }
+
+
+
+      if(filtering.testIssueStatus == true) {
+        $(el).show(200);
       }
+      if(filtering.testIssueType == true) {
+        $(el).show(200);
+      }
+      // if(filtering.test1 == true) {
+      //   $(el).show(200);
+      // }
+      else {
+        $(el).show(200);
 
-
-      switch (filtering.test) {
-        case true:
-          $(el).show();
-          show++;
-          console.log('pokazuje ')
-          break;
-
-        default:
-          $(el).hide();
-          hidden++;
-          console.log('hide ')
-          break;
       }
 
     });
-
-console.log('hiddden to true '+hidden + ' shown to jest false '+shown)
-
   }
-
-
-
-}
-
-
-
+};
 
 filtering.init();
