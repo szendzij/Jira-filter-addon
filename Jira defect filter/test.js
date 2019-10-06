@@ -1,25 +1,26 @@
-var differentThanDefects = $(".ui-sortable tr img[alt!='Defect Sub-task'] ");
-var closedDefects = $(".ui-sortable tr span:contains('Closed')");
+// var differentThanDefects = $(".ui-sortable tr img[alt!='Defect Sub-task'] ");
+// var closedDefects = $(".ui-sortable tr span:contains('Closed')");
 
 
-$("#view-subtasks_heading").append("<button id='show' style='border-radius:6px;margin:3px;background-color: #2684ff;border: none;color: white;padding: 5px 15px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;'>show</button>");
-$("#view-subtasks_heading").append("<button id='hide' style='border-radius:6px;margin:3px;background-color: #2684ff;border: none;color: white;padding: 5px 15px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;'>hide</button>");
+// $("#view-subtasks_heading").append("<button id='show' style='border-radius:6px;margin:3px;background-color: #2684ff;border: none;color: white;padding: 5px 15px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;'>show</button>");
+// $("#view-subtasks_heading").append("<button id='hide' style='border-radius:6px;margin:3px;background-color: #2684ff;border: none;color: white;padding: 5px 15px;text-align: center;text-decoration: none;display: inline-block;font-size: 12px;'>hide</button>");
 
 
-$("#hide").click(function () {
-  differentThanDefects.parent().parent().parent().hide(500);
-  closedDefects.parent().parent().hide(500);
-});
+// $("#hide").click(function () {
+//   differentThanDefects.parent().parent().parent().hide(500);
+//   closedDefects.parent().parent().hide(500);
+// });
 
-$("#show").click(function () {
-  differentThanDefects.parent().parent().parent().show(500);
-  closedDefects.parent().parent().show(500);
-});
-
-
+// $("#show").click(function () {
+//   differentThanDefects.parent().parent().parent().show(500);
+//   closedDefects.parent().parent().show(500);
+// });
 
 
-var html = '<div class="issues-wrap" style="padding: 16px;border: 1px solid #d4d4d4;border-radius: 9px 9px 9px 9px;">' +
+
+
+var jiraAddonContent =
+  '<div class="issues-wrap" style="padding-top: 16px;">' +
   '<p style="font-size:16px;"><strong>Issue Type:</strong></p>' +
   '<form>' +
   '<label style="font-size:16px;">' +
@@ -32,7 +33,7 @@ var html = '<div class="issues-wrap" style="padding: 16px;border: 1px solid #d4d
   '<input type="checkbox" name="issue-type" value="Defect Sub-task" id="Defect Sub-task" /> Defect Sub-task</label>' +
   '<br>' +
   '<label style="font-size:16px;">' +
-  '<input type="checkbox" name="issue-type" value="Sub-task - " id="Sub-task" /> Sub-task</label>' +
+  '<input type="checkbox" name="issue-type" value="Sub-task" id="Sub-task" /> Sub-task</label>' +
   '<br>' +
   '<label style="font-size:16px;">' +
   '<input type="checkbox" name="issue-type" value="Sub Test Execution" id="Sub Test Execution" /> Sub Test Execution</label>' +
@@ -93,110 +94,53 @@ var html = '<div class="issues-wrap" style="padding: 16px;border: 1px solid #d4d
   '</form>' +
   '</div>';
 
-$("#greenhopper-agile-issue-web-panel_heading").append(html);
+$("#greenhopper-agile-issue-web-panel_heading").append(jiraAddonContent);
 
 
 
 
-// var $filterCheckboxes = $('input[type="checkbox"]');
+var jiraAddon = {
+  matchedIssueStatus: false,
+  matchedIssueType: false,
 
-// $filterCheckboxes.on('change', function() {
-
-//   var selectedFilters = {};
-
-//   $filterCheckboxes.filter(':checked').each(function() {
-
-//     if (!selectedFilters.hasOwnProperty(this.name)) {
-//       selectedFilters[this.name] = [];
-//     }
-
-//     selectedFilters[this.name].push(this.value);
-// 	console.log(selectedFilters);
-//   });
-
-//   // create a collection containing all of the filterable elements
-//   var $filteredResults = $('#issuetable .issuerow');
-//   console.log($filteredResults);
-
-//   // loop over the selected filter name -> (array) values pairs
-//   $.each(selectedFilters, function(name, filterValues) {
-
-//     // filter each .issuetype element
-//     $filteredResults = $filteredResults.filter(function() {
-
-//       var matched = false,
-//         currentFilterValues = $(this).data('');
-
-//       // loop over each category value in the current .flower's data-category
-//       $.each(currentFilterValues, function(_, currentFilterValue) {
-
-//         // if the current category exists in the selected filters array
-//         // set matched to true, and stop looping. as we're ORing in each
-//         // set of filters, we only need to match once
-
-//         if ($.inArray(currentFilterValue, filterValues) != -1) {
-//           matched = true;
-//           return false;
-//         }
-//       });
-
-//       // if matched is true the current .flower element is returned
-//       return matched;
-
-//     });
-//   });
-
-//   $('.flower').hide().filter($filteredResults).show();
-
-// });
-
-
-
-var filtering = {
-  testIssueStatus: false,
-  testIssueType: false,
   selectedFilters: [],
-  tab_resoult: [],
-  tab: [],
-  tab2: [],
+  listOfElements: [],
 
-  tab_status: [],
-  tab_issueType: [],
+  arrayIssueStatus: [],
+  arrayIssueType: [],
+  // tab_resoult: [],
 
   init: function () {
     // przygotowuje dane:
-    // tab - cala tablica subtascków
-    filtering.tab = $($('.issuerow'));
+    // listOfElements - cala tablica subtascków
+    jiraAddon.listOfElements = $($('.issuerow'));
     // przygotowujemy sobie tablice pomocniczą z elementami ktor na każdym tasku będziemy filtrować 
 
-    filtering.tab.each(function (ind, el) {
+    jiraAddon.listOfElements.each(function (ind, el) {
       var issueStatus = $(el).find('.status span').text();
       var isseuType = $(el).find('.issuetype a img').attr('alt');
 
-      filtering.tab_status[ind] = [issueStatus];
-      filtering.tab_issueType[ind] = [isseuType];
+      jiraAddon.arrayIssueStatus[ind] = [issueStatus];
+      jiraAddon.arrayIssueType[ind] = [isseuType];
 
-      // filtering.tab_resoult[ind] = [status, itype];
-      /// do przemyślenia -- ---- -----------------------------------------------------------------------------
-      ////
+      // jiraAddon.tab_resoult[ind] = [issueStatus, isseuType];
+      // do przemyślenia -- ---- -----------------------------------------------------------------------------
     });
 
+
     // zbieramy z widoku listę filtrów
-    var $filterCheckboxes = $('.issues-wrap input[type="checkbox"]');
+    var filterCheckboxes = $('.issues-wrap input[type="checkbox"]');
     // każdy filtr będzie nasłuchiwał zmiany wartości
-    $filterCheckboxes.on('change', function (elem) {
-      // filtering.selectedFilters zawiera aktualne zaznaczone checkboxy 
-      filtering.selectedFilters = [];
+    filterCheckboxes.on('change', function (elem) {
+      // jiraAddon.selectedFilters zawiera aktualne zaznaczone checkboxy 
+      jiraAddon.selectedFilters = [];
 
-      $filterCheckboxes.filter(':checked').each(function (j, el) {
-        // twożymy listę zaznaczonych w tablicy filtering.selectedFilters  ( poprostu update)
-        filtering.selectedFilters.push(el.value);
-
-        console.log('selected filters ' + filtering.selectedFilters);
-
+      filterCheckboxes.filter(':checked').each(function (j, el) {
+        // twożymy listę zaznaczonych w tablicy jiraAddon.selectedFilters  ( poprostu update)
+        jiraAddon.selectedFilters.push(el.value);
       });
       // wołamy funkcję filtrującą dane (hide /show)
-      filtering.filter();
+      jiraAddon.filter();
     });
   },
 
@@ -205,86 +149,81 @@ var filtering = {
 
     // dla każego elementu z widoku robimy sprawdzenie czy spełnia WSZYSTKIE warunki filtru
 
-    filtering.tab.each(function (ind, el) {
+    jiraAddon.listOfElements.each(function (ind, el) {
       // każdy element ze zbioru wyżej przechodzi przez each dla filtru niżej
-      filtering.testIssueStatus = false;
-      filtering.testIssueType = false;
+      jiraAddon.matchedIssueStatus = false;
+      jiraAddon.matchedIssueType = false;
+
+      // jiraAddon.test = false;
 
 
+      if (jiraAddon.selectedFilters.length == 0) {
+        jiraAddon.matchedIssueStatus = true;
+        jiraAddon.matchedIssueType = true;
 
-      if (filtering.selectedFilters.length == 0) {
-        filtering.testIssueStatus = true;
-        filtering.testIssueType = true;
+        // jiraAddon.test = true;
 
       }
 
-      filtering.selectedFilters.forEach(function (filterValue, intValue) {
+      jiraAddon.selectedFilters.forEach(function (filterValue, intValue) {
 
-      //   if (ind == 1){
-      //     console.warn('filtering.tab_status[ind] '+filtering.tab_status[ind]);
-      //     console.warn('filtering.tab_issueType[ind] '+filtering.tab_issueType[ind]);
+        //   if (ind == 1){
+        //     console.warn('jiraAddon.arrayIssueStatus[ind] '+jiraAddon.arrayIssueStatus[ind]);
+        //     console.warn('jiraAddon.arrayIssueType[ind] '+jiraAddon.arrayIssueType[ind]);
 
-      //     console.warn('filter value '+filterValue);
-      //     console.warn('indexOf status'+filtering.  tab_status[ind].indexOf(filterValue));
-      //     console.warn('indexOf type'+filtering.tab_status[ind].indexOf(filterValue));
-      // }
-
-
-
-        // if (filtering.tab_resoult[ind].indexOf(filterValue) !== -1) {
-        //   filtering.test = true;
+        //     console.warn('filter value '+filterValue);
+        //     console.warn('indexOf status'+jiraAddon.  arrayIssueStatus[ind].indexOf(filterValue));
+        //     console.warn('indexOf type'+jiraAddon.arrayIssueStatus[ind].indexOf(filterValue));
         // }
 
-        if (filtering.tab_issueType[ind].indexOf(filterValue) !== -1) {
-          filtering.testIssueType = true;
-          
+
+
+        // if (jiraAddon.tab_resoult[ind].indexOf(filterValue) !== -1) {
+        //   jiraAddon.test = true;
+        //   // return false;
+        // }
+
+        // return jiraAddon.test;
+
+        if (jiraAddon.arrayIssueType[ind].indexOf(filterValue) !== -1) {
+          jiraAddon.matchedIssueType = true;
+          var dupa = function() {
+
+          }
         }
 
-        if (filtering.tab_status[ind].indexOf(filterValue) !== -1) {
-          filtering.testIssueStatus = true;
+        if (jiraAddon.arrayIssueStatus[ind].indexOf(filterValue) !== -1) {
+          jiraAddon.matchedIssueStatus = true;
         }
-
-
-
 
       });
       // if (ind == 18) {
       //   console.log("sprawdzanie wartości dla");
-      //   console.log(filtering.test);
+      //   console.log(jiraAddon.test);
       //   console.log(ind);
-      //   console.log(filtering.selectedFilters);
-      //   console.log(filtering.tab_resoult[ind]);
+      //   console.log(jiraAddon.selectedFilters);
+      //   console.log(jiraAddon.tab_resoult[ind]);
 
       // }
 
-      // switch (filtering.test1) {
-      //   case true:
-      //     $(el).show(200);
-      //     break;
+      // $('.issuerow').hide(200).filter(this.selectedFilters).show(200);
 
-      //   default:
-      //     $(el).hide(200);
-      //     break;
-      // }
-
-
-
-      if(filtering.testIssueStatus == true) {
-        $(el).show(200);
+      switch (true) {
+        case (jiraAddon.matchedIssueStatus && jiraAddon.matchedIssueType):
+          $(el).show(200);
+          break;
+        case (jiraAddon.matchedIssueStatus):
+          $(el).show(200);
+          break;
+        case (jiraAddon.matchedIssueType):
+          $(el).show(200);
+          break;
+        default:
+          $(el).hide(200);
+          break;
       }
-      if(filtering.testIssueType == true) {
-        $(el).show(200);
-      }
-      // if(filtering.test1 == true) {
-      //   $(el).show(200);
-      // }
-      else {
-        $(el).show(200);
-
-      }
-
     });
   }
-};
+}
 
-filtering.init();
+jiraAddon.init();
