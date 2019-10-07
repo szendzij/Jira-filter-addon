@@ -7,7 +7,6 @@ var jiraAddon = {
 
   arrayIssueStatus: [],
   arrayIssueType: [],
-  // tab_resoult: [],
 
   listOfCheckboxesOfType: [],
   listOfCheckboxesOfStatus: [],
@@ -29,9 +28,6 @@ var jiraAddon = {
 
       jiraAddon.addStatusHtml(issueStatus);
       jiraAddon.addTypeHtml(isseuType);
-
-
-      // jiraAddon.tab_resoult[ind] = [issueStatus, isseuType];
       // do przemyślenia -- ---- -----------------------------------------------------------------------------
     });
 
@@ -70,10 +66,10 @@ var jiraAddon = {
   addingHtml: function () {
     var jiraAddonContent = 
     '<div class="issues-wrap" style="padding-top: 16px;">' +
-    '<p style="font-size:16px;"><strong>Issue Type:</strong></p>' +
+    '<p style="font-size:16px;text-decoration: underline;"><strong>Issue Type:</strong></p>' +
     '<form class="checkboxesOfIssueType">' +
     '</form>' +
-    '<p style="font-size:16px;"><strong>Issue status:</strong></p>' +
+    '<p style="font-size:16px;text-decoration: underline;"><strong>Issue Status:</strong></p>' +
     '<form class="checkboxesOfIssueStatus">' +
     '</form>' +
     '</div>';
@@ -108,26 +104,23 @@ var jiraAddon = {
     jiraAddon.listOfElements.each(function (ind, el) {
       // każdy element ze zbioru wyżej przechodzi przez each dla filtru niżej
 
-      // jiraAddon.test = false;
-
       var elementInType = jiraAddon.selectedFiltersOfType.indexOf(jiraAddon.arrayIssueType[ind]) !== -1 ? true : false;
       var elementInStatus = jiraAddon.selectedFiltersOfStatus.indexOf(jiraAddon.arrayIssueStatus[ind]) !== -1 ? true : false;
 
 
       if (jiraAddon.selectedFiltersOfType.length == 0) {
         elementInType = true;
-        // jiraAddon.test = true;
       }
 
       if (jiraAddon.selectedFiltersOfStatus.length == 0) {
         elementInStatus = true;
-        // jiraAddon.test = true;
       }
 
       if (elementInType == true && elementInStatus == true) {
-        $(el).show(200);
+        $(el).show(100);
+
       } else {
-        $(el).hide(200);
+        $(el).hide(100);
       }
     });
   }

@@ -1,7 +1,7 @@
 { 
-  "name": "Jira defect resolved filter", 
+  "name": "Jira - the filtering out addon.", 
   "version": "0.1", 
-  "description": "What do I do as an extension", 
+  "description": "Extend jira power by add some filters in issue tasks.", 
   "background": {
     "page": "background.html"
   },
@@ -13,7 +13,7 @@
    }, 
    "content_scripts": [ 
     { 
-      "js": [ "jquery.js", "test.js" ], 
+      "js": [ "jquery.js", "script.js" ], 
       "matches": [ "http://*/*", "https://*/*"]
     }
  ]
