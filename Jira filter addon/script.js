@@ -13,12 +13,15 @@ var jiraAddon = {
     checkboxesOfStatus: [],
     checkboxesOfAssignment: []
   },
+  isDragging: false,
+  dragOffset: { x: 0, y: 0 },
 
   init() {
     this.addingHtml();
     this.cacheDomElements();
     this.populateIssueArrays();
     this.attachFilterEventHandlers();
+    this.makeDraggable();
   },
 
   cacheDomElements() {
@@ -44,7 +47,7 @@ var jiraAddon = {
   addFilterHtml(filterType, value) {
     let checkboxesList;
     let container;
-    
+
     if (filterType === 'status') {
       checkboxesList = this.lists.checkboxesOfStatus;
       container = '.checkboxesOfIssueStatus';
@@ -93,7 +96,17 @@ var jiraAddon = {
 
   addingHtml() {
     let htmlContent = `
-      <div class="issues-wrap" style="position: absolute; top: 0; right: -14rem;">
+      <div id="draggable-element" style="position: fixed;
+        bottom: 2rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid #f5f1f1;
+        max-width: 210px;
+        max-height: 410px;
+        height: fit-content;
+        padding: 1em;
+        z-index: 100;
+        overflow: auto;
+        box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1)">
         <p style="font-size:16px;text-decoration: underline;"><strong>Issue Type:</strong></p>
         <form class="checkboxesOfIssueType"></form>
         <p style="font-size:16px;text-decoration: underline;"><strong>Issue Status:</strong></p>
@@ -102,7 +115,32 @@ var jiraAddon = {
         <form class="checkboxesOfIssueAssignment"></form>
       </div>
     `;
-    $("#view-subtasks_heading").append(htmlContent);
+    $("#greenhopper-agile-issue-web-panel").append(htmlContent);
+  },
+
+  makeDraggable() {
+    const draggableElement = document.getElementById('draggable-element');
+
+    draggableElement.addEventListener('mousedown', (e) => {
+      this.isDragging = true;
+      this.dragOffset.x = e.clientX - draggableElement.offsetLeft;
+      this.dragOffset.y = e.clientY - draggableElement.offsetTop;
+
+      // Prevent default to avoid unwanted text selection
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (this.isDragging) {
+        draggableElement.style.left = `${e.clientX - this.dragOffset.x}px`;
+        draggableElement.style.top = `${e.clientY - this.dragOffset.y}px`;
+        draggableElement.style.position = 'fixed';
+      }
+    });
+
+    document.addEventListener('mouseup', () => {
+      this.isDragging = false;
+    });
   }
 };
 
